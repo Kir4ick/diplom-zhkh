@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
+use Illuminate\Foundation\Auth\User;
 
 /**
  * Class Customer
@@ -32,7 +33,7 @@ use Orchid\Screen\AsSource;
  *
  * @package App\Models
  */
-class Customer extends Model
+class Customer extends User
 {
 
     use AsSource, Filterable;
@@ -40,11 +41,11 @@ class Customer extends Model
 	protected $table = 'customers';
 
 	protected $casts = [
-		'address_id' => 'int'
+		'address_id' => 'int',
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
 	];
 
 	protected $fillable = [
@@ -54,8 +55,13 @@ class Customer extends Model
 		'email',
 		'number',
 		'password',
-		'address_id'
+		'address_id',
 	];
+
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->name} {$this->middle_name} {$this->last_name}";
+    }
 
 	public function address()
 	{

@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Layouts\Feedbacks\FeedbacksListLayout;
 use App\Orchid\Screens\Addresses\AddressesListScreen;
 use App\Orchid\Screens\Addresses\AddressesEditScreen;
 use App\Orchid\Screens\Customers\CustomersEditScreen;
 use App\Orchid\Screens\Customers\CustomersListScreen;
+use App\Orchid\Screens\Feedbacks\FeedbackListScreen;
 use App\Orchid\Screens\Notification\NotificationCreateScreen;
 use App\Orchid\Screens\Notification\NotificationListScreen;
 use App\Orchid\Screens\PlatformScreen;
@@ -70,7 +72,7 @@ Route::screen('customer', CustomersListScreen::class)
     ->name('platform.customer')
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
-        ->push(__('Клиенты'), route('platform.address')));
+        ->push(__('Клиенты'), route('platform.customer')));
 Route::screen('customer/create', CustomersEditScreen::class)
     ->name('platform.customer.create')
     ->breadcrumbs(fn (Trail $trail) => $trail
@@ -81,6 +83,12 @@ Route::screen('customer/update/{customers}', CustomersEditScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Адреса'), route('platform.customer')));
+
+Route::screen('feedback', FeedbackListScreen::class)
+    ->name('platform.feedback')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Клиенты'), route('platform.feedback')));
 
 // Platform > System > Users > User
 Route::screen('users/{user}/edit', UserEditScreen::class)
@@ -123,3 +131,8 @@ Route::screen('roles', RoleListScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
+
+Route::screen('requests', \App\Orchid\Screens\RequestListScreen::class)
+    ->name('platform.requests')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index'));

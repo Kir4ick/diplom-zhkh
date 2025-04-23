@@ -66,7 +66,7 @@ class NotificationCreateScreen extends Screen
             $idList[] = CustomerNotification::query()->insertGetId($item);
         }
 
-        CustomerNotificationJob::dispatch($idList);
+        CustomerNotificationJob::dispatchSync($idList);
         Toast::info('Объявление создано');
 
         return redirect()->route('platform.notifications');

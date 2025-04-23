@@ -40,12 +40,6 @@ class RoleListScreen extends Screen
         return 'A comprehensive list of all roles, including their permissions and associated users.';
     }
 
-    public function permission(): ?iterable
-    {
-        return [
-            'platform.systems.roles',
-        ];
-    }
 
     /**
      * The screen's action buttons.

@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Orchid;
 
-use App\Models\CustomerNotification;
-use Illuminate\Support\Facades\Mail;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
 use Orchid\Screen\Actions\Menu;
-use Orchid\Support\Color;
 
 class PlatformProvider extends OrchidServiceProvider
 {
@@ -24,8 +21,6 @@ class PlatformProvider extends OrchidServiceProvider
     public function boot(Dashboard $dashboard): void
     {
         parent::boot($dashboard);
-
-        // ...
     }
 
     /**
@@ -44,6 +39,14 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.card-text')
                 ->route('platform.customer'),
 
+            Menu::make('Обратная связь')
+                ->icon('bs.card-text')
+                ->route('platform.feedback'),
+
+            Menu::make('Обращения')
+                ->icon('bs.card-text')
+                ->route('platform.requests'),
+
             Menu::make('Объявления')
                 ->icon('bs.card-text')
                 ->route('platform.notifications')
@@ -52,14 +55,7 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make(__('Users'))
                 ->icon('bs.people')
                 ->route('platform.systems.users')
-                ->permission('platform.systems.users')
                 ->title(__('Управление доступами')),
-
-            Menu::make(__('Roles'))
-                ->icon('bs.shield')
-                ->route('platform.systems.roles')
-                ->permission('platform.systems.roles')
-                ->divider(),
         ];
     }
 
@@ -71,9 +67,7 @@ class PlatformProvider extends OrchidServiceProvider
     public function permissions(): array
     {
         return [
-            ItemPermission::group(__('System'))
-                ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
+
         ];
     }
 }

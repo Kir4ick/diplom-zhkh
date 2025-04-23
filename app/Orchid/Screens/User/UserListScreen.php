@@ -48,13 +48,6 @@ class UserListScreen extends Screen
         return 'A comprehensive list of all registered users, including their profiles and privileges.';
     }
 
-    public function permission(): ?iterable
-    {
-        return [
-            'platform.systems.users',
-        ];
-    }
-
     /**
      * The screen's action buttons.
      *
