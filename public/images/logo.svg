@@ -1,0 +1,10 @@
+<svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid meet">
+    <g fill="black">
+        <!-- Верхний ромб -->
+        <polygon points="100,20 120,65 100,110 80,65" />
+        <!-- Левый треугольник (вершина вверх) -->
+        <polygon points="50,115 70,75 90,115" />
+        <!-- Правый треугольник (вершина вверх) -->
+        <polygon points="110,115 130,75 150,115" />
+    </g>
+</svg>

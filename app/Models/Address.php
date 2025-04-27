@@ -53,10 +53,10 @@ class Address extends Model
     public function getFullAttribute(): string
     {
         return sprintf(
-            'ул. %s, дом %s, %s, почтовый индекс: %s',
+            'ул. %s, дом %s%s, Почтовый индекс: %s',
             $this->street,
             $this->number,
-            $this->block == null ? '' : 'к. ' . $this->block,
+            $this->block == null ? '' : ', к. ' . $this->block,
             $this->postal_code
         );
     }

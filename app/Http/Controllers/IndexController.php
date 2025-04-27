@@ -16,21 +16,22 @@ class IndexController
 
     public function index()
     {
-        $notification = [];
-        if (Auth::check()) {
-            $notification = CustomerNotification::query()
-                ->select([
-                    'message',
-                    'created_at',
-                    'updated_at',
-                ])
-                ->selectRaw('group_concat(address_id separator ", ") as address_ids')
-                ->where('address_id', Auth::user()->address_id)
-                ->groupBy('message', 'created_at', 'updated_at')
-                ->orderBy('created_at', 'desc')
-                ->limit(6)
-                ->get();
+        $notificationQuery = CustomerNotification::query()
+            ->select([
+                'message',
+                'created_at',
+                'updated_at',
+            ])
+            ->selectRaw('group_concat(address_id separator ", ") as address_ids')
+            ->groupBy('message', 'created_at', 'updated_at')
+            ->orderBy('created_at', 'desc')
+            ->limit(6);
+
+        if (!Auth::guest()) {
+            $notificationQuery->where('address_id', Auth::user()->address_id);
         }
+
+        $notification = $notificationQuery->get();
 
         return view('index', compact('notification'));
     }
@@ -81,6 +82,13 @@ class IndexController
 
     public function registration(Request $request)
     {
+        $request->validate([
+            'fullname' => ['required', 'regex:/^[А-ЯЁ][а-яё]+( [А-ЯЁ][а-яё]+){1,2}$/u'],
+            'email' => ['required', 'unique:customers', 'email'],
+            'password' => ['required', 'min:8'],
+            'phone' => ['unique:customers,number'],
+        ]);
+
         $email = $request->input('email');
         $phone = $request->input('phone');
         $fullname = $request->input('fullname');

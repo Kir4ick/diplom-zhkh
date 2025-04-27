@@ -42,6 +42,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Изменение данных</h5>
+                        <hr>
                         <form action="{{ route('profile.update') }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -82,6 +83,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Отправленные заявки</h5>
+                        <hr>
                         <ul class="list-group">
                             @foreach($requestsList as $request)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -99,6 +101,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Отправленные отзывы</h5>
+                        <hr>
                         @foreach($feedbackList as $feedback)
                             <div class="mb-3">
                                 <p><strong>Дата:</strong> {{ (new DateTime($feedback->createdAt))->format('d.m.Y') }} </p>

@@ -1,6 +1,6 @@
 @extends('layouts.content')
 @section('content')
-<header class="vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, rgba(194,123,17,0.8) 0%, rgba(194,76,17,0.8) 100%), url('bg-image.jpg') no-repeat center center; background-size: cover;">
+<header class="vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, rgba(194,123,17,0.8) 0%, rgba(194,76,17,0.8) 100%), url({{ asset('images/background.jpg') }}) no-repeat center center; background-size: cover;">
     <div class="container text-center text-white">
         <h1 class="display-4 mb-4">УК ДОМОВОЙ</h1>
         <p class="lead mb-5">Профессиональное управление вашей недвижимостью</p>
@@ -49,8 +49,8 @@
     </div>
 </section>
 
-@if(!\Illuminate\Support\Facades\Auth::guest())
 <section class="news-section">
+    <h2 class="text-center mb-5">Последние новости</h2>
     <div class="container">
         <div class="news-grid">
             @foreach($notification as $newsItem)
@@ -66,7 +66,6 @@
         </div>
     </div>
 </section>
-@endif
 
 <?php $flash = session()->get('requestMessage') ?>
 @if($flash)

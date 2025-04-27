@@ -42,7 +42,7 @@
         <h2 class="mb-4">Авторизация</h2>
         <?php $flash = session()->get('message') ?>
         @if($flash)
-            <div class="error-message" id="reg-error">
+            <div class="error-message" style="color: #dc3535; margin-bottom: 10px" id="reg-error">
                 <?=$flash?>
             </div>
         @endif

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> @yield('title', 'УК домовой') </title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <style>
         :root {
             --primary: #c27b11;
@@ -282,10 +285,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h3>Контакты</h3>
+                <h3>Контакты:</h3>
                 <p>Адрес: ул. Примерная, д. 123</p>
-                <p>Телефон: +7 (123) 456-78-90</p>
-                <p>Email: info@zhkh-service.ru</p>
+                <p><a style="text-decoration: none" href="tel:+74567890">Телефон: +7 (123) 456-78-90</a></p>
+                <p><a style="text-decoration: none" href="mailto:info@uk-domovoy.ru">Email: info@uk-domovoy.ru</a></p>
+                <p>© 2025 компания «УК Домовой»</p>
             </div>
         </div>
     </div>
