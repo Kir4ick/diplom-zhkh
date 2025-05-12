@@ -1,45 +1,44 @@
 FROM php:8.3-fpm
 
-# Установка зависимостей
-RUN apt-get update && apt-get install -y \
+# Установка системных зависимостей
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Очистка кэша
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Установка расширений PHP
+# Установка PHP расширений
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Установка рабочей директории
+# Настройка рабочей директории
 WORKDIR /var/www
 
-# Копирование файлов проекта
-COPY . /var/www
+# Копирование файлов composer
+COPY composer.json composer.lock ./
 
-# Установка зависимостей
-RUN composer install --no-dev --optimize-autoloader
+# Копирование остальных файлов проекта
+COPY . .
 
-# Создаем пользователя и группу www-data
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Копирование файлов проекта
-COPY --chown=www:www . /var/www
-
-# Установка зависимостей
-RUN composer install --no-dev --optimize-autoloader
-
-# Установка прав
-RUN chown -R www:www /var/www
+# Установка прав доступа
+RUN chown -R www-data:www-data /var/www
 RUN chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
-USER www
+# Создание необходимых директорий и установка прав
+RUN mkdir -p /var/www/storage/framework/{sessions,views,cache} && \
+    chmod -R 775 /var/www/storage/framework
+
+# Настройка пользователя
+RUN usermod -u 1000 www-data
+USER www-data
+
+# Открытие порта PHP-FPM
+EXPOSE 9000
+
+CMD ["php-fpm"]
